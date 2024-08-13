@@ -5,6 +5,7 @@
 
 
 def markBlockAsVisited(index, stv, arv):
+    """ Node marker """
     if stv.__contains__(index):
         stv.remove(index)
     arv.add(index)
@@ -28,6 +29,10 @@ def canUnlockAll(boxes) -> bool:
         This function determines if all blocks can be opened
         and return True or False
     """
+    if not isinstance(boxes, list):
+        return False
+    if len(boxes) == 0:
+        return True
     remain = set([x for x in range(len(boxes))])
     visited = set()
     remain, visited = visitNodes(boxes, 0, stv=remain, arv=visited)
