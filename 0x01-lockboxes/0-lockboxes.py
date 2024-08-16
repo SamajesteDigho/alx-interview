@@ -21,8 +21,11 @@ def visitNodes(boxes, index, stv, arv):
         return stv, arv
 
     for x in boxes[index]:
-        if not arv.__contains__(x):
-            stv, arv = visitNodes(boxes, x, stv, arv)
+        try:
+            if not arv.__contains__(x):
+                stv, arv = visitNodes(boxes, x, stv, arv)
+        except RecursionError:
+            pass
     return stv, arv
 
 
