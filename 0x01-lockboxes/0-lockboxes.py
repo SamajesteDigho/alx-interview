@@ -15,6 +15,8 @@ def markBlockAsVisited(index, stv, arv):
 def visitNodes(boxes, index, stv, arv):
     """ Nodes Visiting contest """
     stv, arv = markBlockAsVisited(index, stv=stv, arv=arv)
+    if index >= len(boxes):
+        return stv, arv
     if len(boxes[index]) == 0:
         return stv, arv
 
