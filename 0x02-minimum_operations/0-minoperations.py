@@ -8,7 +8,7 @@ from typing import Tuple
 def fragment_number(n: int) -> Tuple[int, int]:
     """ Fragment a given number into the 2 closest multiple """
     pair: Tuple = tuple([1, n])
-    for i in range(2, n//2):
+    for i in range(2, n//2 + 1):
         mod: int = n % i
         if mod == 0 and abs(i - n//i) < abs(pair[0] - pair[1]):
             pair = tuple([i, n//i])
