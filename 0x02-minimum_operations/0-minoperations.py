@@ -21,7 +21,7 @@ def get_associate_pairs(n: int) -> List[Tuple[int, int]]:
     current: Tuple[int, int] = fragment_number(n)
     while current[0] != 1 and current[1] != 1:
         branches.append(current)
-        current = fragment_number(current[0])
+        current = fragment_number(n=current[0])
     branches.append(current)
     return branches
 
@@ -36,4 +36,4 @@ def gathering_operations(graph: List[Tuple[int, int]]) -> int:
 
 def minOperations(n: int) -> int:
     """ Here the principal function for getting the number of operations """
-    return gathering_operations(get_associate_pairs(n))
+    return gathering_operations(graph=get_associate_pairs(n=n))
