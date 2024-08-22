@@ -9,14 +9,13 @@ def fragment_number(n: int) -> Tuple[int, int]:
     """ Fragment a given number into the 2 closest multiple """
     pair: Tuple = tuple([1, n])
     for i in range(2, n//2 + 1):
-        mod: int = n % i
-        if mod == 0 and abs(i - n//i) < abs(pair[0] - pair[1]):
+        if n % i == 0 and abs(i - n//i) < abs(pair[0] - pair[1]):
             pair = tuple([i, n//i])
     return pair
 
 
 def process_node(node: Tuple[int, int]) -> int:
-    """ Process a node [x, y] and return the number of operations """
+    """ Process a node (x, y) and return the number of operations """
     if node[0] == 1:
         return node[1]
     if node[1] == 1:
