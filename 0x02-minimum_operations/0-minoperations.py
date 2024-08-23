@@ -7,7 +7,8 @@ from typing import Tuple
 
 def fragment_number(n: int) -> Tuple[int, int]:
     """ Fragment a given number into the 2 closest multiple """
-    pair: Tuple = tuple([1, n])
+    pair: Tuple[int, int]
+    pair = tuple([1, n])
     for i in range(2, n//2 + 1):
         if n % i == 0 and abs(i - n//i) < abs(pair[0] - pair[1]):
             pair = tuple([i, n//i])
@@ -20,8 +21,10 @@ def process_node(node: Tuple[int, int]) -> int:
         return node[1]
     if node[1] == 1:
         return node[0]
-    left: Tuple[int, int] = fragment_number(n=node[0])
-    right: Tuple[int, int] = fragment_number(n=node[1])
+    left: Tuple[int, int]
+    right: Tuple[int, int]
+    left = fragment_number(n=node[0])
+    right = fragment_number(n=node[1])
     return process_node(node=left) + process_node(node=right)
 
 
@@ -29,5 +32,6 @@ def minOperations(n: int) -> int:
     """ Here the principal function for getting the number of operations """
     if n <= 1:
         return 0
-    initial: Tuple[int, int] = fragment_number(n=n)
+    initial: Tuple[int, int]
+    initial = fragment_number(n=n)
     return process_node(node=initial)
