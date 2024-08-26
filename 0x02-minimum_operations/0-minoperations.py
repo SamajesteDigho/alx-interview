@@ -29,6 +29,5 @@ def minOperations(n: int) -> int:
     """ Here the principal function for getting the number of operations """
     if n <= 1:
         return 0
-    initial: Tuple[int, int]
     initial = fragment_number(n=n)
     return process_node(node=initial)
