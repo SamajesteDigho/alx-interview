@@ -9,6 +9,7 @@ import sys
 data = {}
 size = 0
 count = 0
+code_list = ['200', '301', '400', '401', '403', '404', '405', '500']
 
 
 def display_info():
@@ -28,14 +29,17 @@ def line_match_regex(line: str) -> bool:
     return True
 
 
-def process_input(input: str):
+def process_input(input: str) -> bool:
     """ Process input and classify it """
-    global data, size
+    global data, size, code_list
     parts = input.split(sep=' ')
     status = parts[-2]
     addsize = int(parts[-1])
-    data[str(status)] = data.get(str(status), 0) + 1
-    size += addsize
+    if status in code_list:
+        data[status] = data.get(status, 0) + 1
+        size += addsize
+        return True
+    return False
 
 
 def interruption_handle(signum, frame):
