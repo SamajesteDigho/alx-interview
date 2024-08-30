@@ -5,6 +5,7 @@
 import re
 import signal
 import sys
+from typing import Any
 
 
 data = {}
@@ -52,7 +53,7 @@ def process_input(input: str) -> bool:
     return False
 
 
-def interruption_handle(signum, frame):
+def interruption_handle(signum: Any, frame: Any):
     """ Interrupt the process """
     display_info()
     sys.exit(0)
