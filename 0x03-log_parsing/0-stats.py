@@ -2,6 +2,7 @@
 """
     Here the module description
 """
+import re
 import signal
 import sys
 
@@ -24,8 +25,15 @@ def display_info():
 
 def line_match_regex(line: str) -> bool:
     """ Check if the line matches the regex """
-    if len(line) == 0:
-        False
+    ip_reg = '(([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])'
+    dt_reg = '\[[0-9]{4}-(0[1-9]|1[0-2])-([0-2][1-9]|30|31) ([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])\.[0-9]{6}\]'
+    sc_reg = '(200|301|400|401|403|404|405|500){1}'
+    fs_reg = '([1-9][0-9]*){1}'
+    fixed = '"GET /projects/260 HTTP/1.1"'
+    regex = f'{ip_reg} - {dt_reg} {fixed} {sc_reg} {fs_reg}'
+    match = re.fullmatch(pattern=regex, string=line)
+    if match is None:
+        return False
     return True
 
 
@@ -52,7 +60,8 @@ def main():
     """ Main heart function """
     global data, size, count
     for line in sys.stdin:
-        if line_match_regex(line):
+        match = line_match_regex(line.strip())
+        if match:
             process_input(input=line)
             count += 1
         if count == 10:
