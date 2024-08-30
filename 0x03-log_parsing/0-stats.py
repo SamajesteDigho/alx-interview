@@ -60,7 +60,8 @@ def main():
     """ Main heart function """
     global data, size, count
     for line in sys.stdin:
-        if line_match_regex(line.strip()):
+        # line_match_regex(line.strip())
+        if True:
             process_input(input=line)
             count += 1
         if count == 10:
