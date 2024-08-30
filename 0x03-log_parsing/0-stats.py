@@ -30,7 +30,7 @@ def line_match_regex(line: str) -> bool:
         '([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])'
     dt_reg = r'\[[0-9]{4}-(0[1-9]|1[0-2])-([0-2][1-9]|30|31) '\
         r'([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])\.[0-9]{6}\]'
-    sc_reg = r'(200|301|400|401|403|404|405|500){1}'
+    sc_reg = r'(200|301|400|401|403|404|405|500|Hello){1}'
     fs_reg = r'([1-9][0-9]*){1}'
     fixed = '"GET /projects/260 HTTP/1.1"'
     regex = f'{ip_reg} - {dt_reg} {fixed} {sc_reg} {fs_reg}'
@@ -44,7 +44,7 @@ def line_match_regex(line: str) -> bool:
     return True
 
 
-def process_input(input: str) -> bool:
+def process_input(input: str):
     """ Process input and classify it """
     global data, size, code_list
     parts = input.split(sep=' ')
@@ -52,9 +52,7 @@ def process_input(input: str) -> bool:
     addsize = int(parts[-1])
     if status in code_list:
         data[status] = data.get(status, 0) + 1
-        size += addsize
-        return True
-    return False
+    size += addsize
 
 
 def interruption_handle(signum: Any, frame: Any):
