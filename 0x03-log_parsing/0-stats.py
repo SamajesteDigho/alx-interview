@@ -69,6 +69,7 @@ def main():
         if count == 10:
             display_info()
             count = 0
+    display_info()
 
 
 if __name__ == "__main__":
