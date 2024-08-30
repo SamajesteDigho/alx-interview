@@ -25,10 +25,10 @@ def display_info():
 
 def line_match_regex(line: str) -> bool:
     """ Check if the line matches the regex """
-    ip_reg = r'(([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}" \
-        "([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])'
-    dt_reg = r'\[[0-9]{4}-(0[1-9]|1[0-2])-([0-2][1-9]|30|31) " \
-        "([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])\.[0-9]{6}\]'
+    ip_reg = r'(([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}'\
+        '([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])'
+    dt_reg = r'\[[0-9]{4}-(0[1-9]|1[0-2])-([0-2][1-9]|30|31) '\
+        '([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])\.[0-9]{6}\]'
     sc_reg = r'(200|301|400|401|403|404|405|500){1}'
     fs_reg = r'([1-9][0-9]*){1}'
     fixed = '"GET /projects/260 HTTP/1.1"'
@@ -62,8 +62,7 @@ def main():
     """ Main heart function """
     global data, size, count
     for line in sys.stdin:
-        # line_match_regex(line.strip())
-        if True:
+        if line_match_regex(line.strip()):
             process_input(input=line)
             count += 1
         if count == 10:
