@@ -31,11 +31,9 @@ def process_current_byte_validate_next(data: List[str],
                                        byte_idx: int,
                                        nb_byte: Union[int, None]) -> bool:
     """ Process the current byte structure and validate the next bytes """
-    try:
-        data[byte_idx][nb_byte]
-    except:
-        return False
     if nb_byte is None:
+        return False
+    elif nb_byte < 0 or nb_byte > 4:
         return False
     elif nb_byte == 1 and data[byte_idx][0] == '0':
         return True
