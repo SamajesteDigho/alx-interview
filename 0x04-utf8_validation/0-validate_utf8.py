@@ -39,7 +39,10 @@ def process_current_byte_validate_next(data: List[str],
         return False
 
     for x in range(byte_idx+1, byte_idx+1+nb_byte):
-        if data[x][0:2] != '10':
+        try:
+            if data[x][0:2] != '10':
+                return False
+        except:
             return False
     return True
 
