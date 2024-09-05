@@ -42,7 +42,7 @@ def process_current_byte_validate_next(data: List[str],
     elif nb_byte != 1 and data[byte_idx][nb_byte] != '0':
         return (False, count)
 
-    for x in range(byte_idx+1, byte_idx+1+nb_byte):
+    for x in range(byte_idx+1, byte_idx+nb_byte):
         try:
             count += 1
             if data[x][0:2] != '10':
