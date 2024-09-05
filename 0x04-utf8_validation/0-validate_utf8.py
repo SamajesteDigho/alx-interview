@@ -2,7 +2,7 @@
 """
     UTF8 Bit vlidation exercise
 """
-from typing import List, Union
+from typing import List, Tuple, Union
 
 
 def convert_nb_to_binary(nb: int) -> str:
@@ -29,24 +29,27 @@ def check_step_1(val: str) -> Union[int, None]:
 
 def process_current_byte_validate_next(data: List[str],
                                        byte_idx: int,
-                                       nb_byte: Union[int, None]) -> bool:
+                                       nb_byte: Union[int, None]
+                                       ) -> Tuple[bool, int]:
     """ Process the current byte structure and validate the next bytes """
+    count = 0
     if nb_byte is None:
-        return False
+        return (False, count)
     elif nb_byte < 0 or nb_byte > 4:
-        return False
+        return (False, count)
     elif nb_byte == 1 and data[byte_idx][0] == '0':
-        return True
+        return (True, count)
     elif nb_byte != 1 and data[byte_idx][nb_byte] != '0':
-        return False
+        return (False, count)
 
     for x in range(byte_idx+1, byte_idx+1+nb_byte):
         try:
+            count += 1
             if data[x][0:2] != '10':
-                return False
+                return (False, count)
         except:
-            return False
-    return True
+            return (False, count)
+    return (True, count)
 
 
 def validUTF8(data: List[int]) -> bool:
@@ -54,8 +57,9 @@ def validUTF8(data: List[int]) -> bool:
     binaries = [convert_nb_to_binary(x) for x in data]
     for cur in range(len(data)):
         nbb = check_step_1(binaries[cur])
-        good = process_current_byte_validate_next(
+        good, added = process_current_byte_validate_next(
             data=binaries, byte_idx=cur, nb_byte=nbb)
         if not good:
             return False
+        cur += added
     return True
