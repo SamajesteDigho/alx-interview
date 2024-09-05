@@ -47,7 +47,7 @@ def process_current_byte_validate_next(data: List[str],
             count += 1
             if data[x][0:2] != '10':
                 return (False, count)
-        except:
+        except Exception:
             return (False, count)
     return (True, count)
 
