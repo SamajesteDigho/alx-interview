@@ -3,73 +3,73 @@
     The N queens game player programming
 """
 from sys import argv
+from typing import List, Union
+
+
+class Point:
+    """ A position in the chesse game """
+    def __init__(self, x: int, y: int) -> None:
+        self.xpos = x
+        self.ypos = y
+        self.code = [self.ypos, self.xpos]
+
+    def horizontal_alignment(self, point) -> bool:
+        """ Check if two poins are horizontally aligned """
+        if self.xpos == point.xpos:
+            return True
+        return False
+
+    def vertical_alignment(self, point) -> bool:
+        """ Check if two poins are vertically aligned """
+        if self.ypos == point.ypos:
+            return True
+        return False
+
+    def diagonal_alignment(self, point) -> bool:
+        """ Check if two poins are horizontally aligned """
+        if abs(self.xpos - point.xpos) == abs(self.ypos - point.ypos):
+            return True
+        return False
+
+    def __repr__(self) -> str:
+        return f"{self.code}"
+
+    def __str__(self) -> str:
+        return f"[{self.ypos}, {self.xpos}]"
 
 
 class Cheese:
     """ The chese class """
     def __init__(self, size=4):
-        """ Initialisation """
-        self.board = None
-        self.queens = []
-        self.possibilities = []
-        self.failed_paths = []
-        self.N = size
+        """ Initialisation of the chese board """
+        self.board: List[List[Point]] = []
+        self.queens: List[Point] = []
+        self.possibilities: List[List[Point]] = []
+        self.failed_paths: List[Point] = []
+        self.N: int = size
 
-    def check_collision(self, pos_x, pos_y):
+    def check_queen_insertion_collision(self, point: Point) -> bool:
         """ Collision checking """
         # vertical collision
         for x in self.queens:
-            if x[1] == pos_y:
+            if point.vertical_alignment(x):
                 return True
-        # horizontal collision
-        for x in self.queens:
-            if x[0] == pos_x:
+            elif point.horizontal_alignment(x):
                 return True
-        # diagonal collision
-        x, y = pos_x, pos_y
-        while x >= 0 and y >= 0:
-            if (x-1, y-1) in self.queens:
+            elif point.diagonal_alignment(x):
                 return True
-            else:
-                x -= 1
-                y -= 1
-        x, y = pos_x, pos_y
-        while x < self.N and y < self.N:
-            if (x+1, y+1) in self.queens:
-                return True
-            else:
-                x += 1
-                y += 1
-        x, y = pos_x, pos_y
-        while x >= 0 and y < self.N:
-            if (x-1, y+1) in self.queens:
-                return True
-            else:
-                x -= 1
-                y += 1
-        x, y = pos_x, pos_y
-        while x < self.N and y >= 0:
-            if (x+1, y-1) in self.queens:
-                return True
-            else:
-                x += 1
-                y -= 1
         return False
 
-    def back_propagation(self, row: int, col: int) -> bool:
-        """ Backward propagation """
-        # TODO: Check ending conditions
-        if row >= self.N or col >= self.N:
-            return False
-        if self.check_collision(pos_x=row, pos_y=col):
-            # print("Collision found ({}, {})".format(row, col))
-            for i in range(col, N):
-                self.back_propagation(row, i)
-        else:
-            # print("No Collision found ({}, {})".format(row, col))
-            self.queens.append((row, col))
-            self.back_propagation(row+1, col)
-        if len(self.queens) == N:
+    def back_propagation(self, col: int, row: int) -> Union[bool, None]:
+        """ Analysing each possibility """
+        if col >= self.N or row >= self.N:
+            return True
+        for i in range(col, self.N):
+            point = Point(x=i, y=row)
+            if not self.check_queen_insertion_collision(point=point):
+                self.queens.append(point)
+                self.back_propagation(col=0, row=row+1)
+        if len(self.queens) == self.N:
             self.possibilities.append(self.queens.copy())
         else:
             self.failed_paths.append(self.queens.copy())
@@ -78,14 +78,15 @@ class Cheese:
 
     def search_n_queens_dispositions(self):
         """ Searching n queens function parser """
-        for col in range(self.N):
+        for x in range(0, self.N):
             self.queens = []
-            self.back_propagation(0, col)
+            self.back_propagation(col=x, row=0)
+        if self.N % 2 == 0:
+            self.possibilities.pop(0)
 
     @staticmethod
-    def print_list_object(list_obj):
+    def print_list_object(list_obj: List):
         """ Printing the list of the queens """
-        print("Printing List object")
         for x in list_obj:
             print("{}".format(x))
 
@@ -120,13 +121,12 @@ if __name__ == "__main__":
         exit(1)
 
     cheese = Cheese(size=N)
-
-    print("=====================================")
+    # print("=====================================")
     cheese.search_n_queens_dispositions()
-    print("=====================================")
-    print("{}".format(cheese))
-    print("=====================================")
-    print("{}".format(cheese.failed_paths[:50]))
-    print("=====================================")
-    cheese.print_list_object(cheese.failed_paths)
-    print("=====================================")
+    # print("=====================================")
+    # print("{}".format(cheese))
+    # print("=====================================")
+    # print("{}".format(cheese.failed_paths[:50]))
+    # print("=====================================")
+    cheese.print_list_object(cheese.possibilities)
+    # print("=====================================")
