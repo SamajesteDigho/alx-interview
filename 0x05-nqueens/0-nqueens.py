@@ -40,11 +40,6 @@ class Point:
 
 class Cheese:
     """ The chese class """
-    board: List[List[Point]]
-    queens: List[Point]
-    possibilities: List[List[Point]]
-    failed_paths: List[Point]
-    N: int
 
     def __init__(self, size=4):
         """ Initialisation of the chese board """
