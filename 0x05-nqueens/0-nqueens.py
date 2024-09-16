@@ -40,13 +40,19 @@ class Point:
 
 class Cheese:
     """ The chese class """
+    board: List[List[Point]]
+    queens: List[Point]
+    possibilities: List[List[Point]]
+    failed_paths: List[Point]
+    N: int
+
     def __init__(self, size=4):
         """ Initialisation of the chese board """
-        self.board: List[List[Point]] = []
-        self.queens: List[Point] = []
-        self.possibilities: List[List[Point]] = []
-        self.failed_paths: List[Point] = []
-        self.N: int = size
+        self.N = size
+        self.board = []
+        self.queens = []
+        self.possibilities = []
+        self.failed_paths = []
 
     def check_queen_insertion_collision(self, point: Point) -> bool:
         """ Collision checking """
