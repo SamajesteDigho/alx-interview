@@ -25,6 +25,5 @@ request(url, async (err, response, body) => {
     characters.forEach(elt => {
       promises.push(fetchNamePromises(elt));
     });
-    Promise.all(promises);
   }
 });
