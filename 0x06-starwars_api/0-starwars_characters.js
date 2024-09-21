@@ -8,7 +8,7 @@ const id = process.argv[2];
 const url = `https://swapi-api.alx-tools.com/api/films/${id}`;
 
 function fetchNamePromises (url) {
-  return new Promise(() => {
+  return new Promise((_, __) => {
     request(url, (err, response, body) => {
       if (!err && response.statusCode === 200) {
         const data = JSON.parse(body);
@@ -25,5 +25,6 @@ request(url, async (err, response, body) => {
     characters.forEach(elt => {
       promises.push(fetchNamePromises(elt));
     });
+    Promise.all(promises);
   }
 });
