@@ -14,6 +14,7 @@ def check_is_matrix(matrix: Any) -> bool:
 
 
 def check_is_squared(matrix: List[List[Any]]) -> bool:
+    """ Let's check if it is squared """
     if not isinstance(matrix, list):
         return False
     if len(matrix) == 1:
@@ -27,6 +28,7 @@ def check_is_squared(matrix: List[List[Any]]) -> bool:
 def rotate_2d_matrix(matrix: List[List[Any]]):
     """ 2D Rotation of Matrix """
     size = len(matrix[0])
-    for i in range(size):
-        for j in range(i, size):
-            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    if check_is_squared(matrix=matrix):
+        for i in range(size):
+            for j in range(i, size):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
