@@ -4,31 +4,29 @@
 from typing import Any, List
 
 
-def check_is_matrix(matrix: Any) -> bool:
-    """ Check if a matrix is squared """
-    if not isinstance(matrix, list):
-        return False
-    elif not all(map(lambda x: isinstance(x, list), matrix)):
-        return False
-    return True
+def anti_clock_wise_rotation(matrix: List[List[Any]], size: int):
+    """ Anti-clockwise rotation """
+    for x in range(0, int(size / 2)):
+        for y in range(x, size-x-1):
+            tmp = matrix[x][y]
+            matrix[x][y] = matrix[y][size-1-x]
+            matrix[y][size-1-x] = matrix[size-1-x][size-1-y]
+            matrix[size-1-x][size-1-y] = matrix[size-1-y][x]
+            matrix[size-1-y][x] = tmp
 
 
-def check_is_squared(matrix: List[List[Any]]) -> bool:
-    """ Let's check if it is squared """
-    if not isinstance(matrix, list):
-        return False
-    if len(matrix) == 1:
-        return True
-    length = len(matrix[0])
-    if not all(map(lambda x: len(x) == length, matrix)):
-        return False
-    return True
+def clock_wise_rotation(matrix: List[List[Any]], size: int):
+    """ Clock wise rotation """
+    for x in range(0, int(size / 2)):
+        for y in range(x, size-x-1):
+            tmp = matrix[x][y]
+            matrix[x][y] = matrix[size-1-y][x]
+            matrix[size-1-y][x] = matrix[size-1-x][size-1-y]
+            matrix[size-1-x][size-1-y] = matrix[y][size-1-x]
+            matrix[y][size-1-x] = tmp
 
 
 def rotate_2d_matrix(matrix: List[List[Any]]):
     """ 2D Rotation of Matrix """
     size = len(matrix[0])
-    if check_is_squared(matrix=matrix):
-        for i in range(size):
-            for j in range(i, size):
-                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    clock_wise_rotation(matrix=matrix, size=size)
