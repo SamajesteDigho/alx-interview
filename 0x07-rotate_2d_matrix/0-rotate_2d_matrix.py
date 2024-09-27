@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 """ Rotating 2D Matrix module
 """
-from typing import Any, List
 
 
-def rotate_2d_matrix(matrix: List[List[Any]]):
+def rotate_2d_matrix(matrix):
     """ 2D Rotation of Matrix """
     size = len(matrix[0])
     for x in range(0, int(size / 2)):
