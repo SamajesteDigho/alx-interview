@@ -41,10 +41,10 @@ def island_perimeter(grid):
         return 0
     m = len(grid[0])
     perimeter = 0
-    for i in range(n):
-        try:
+    try:
+        for i in range(n):
             for j in range(m):
                 perimeter += get_perimeter(grid, i, j)
-        except Exception:
-            pass
+    except Exception:
+        return 0
     return perimeter
