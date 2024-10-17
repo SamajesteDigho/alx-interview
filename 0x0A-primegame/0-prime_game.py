@@ -3,19 +3,6 @@
 """
 
 
-def seivePrimeNumbers(n):
-    """ List the prime numbers to N using seive eratosthene """
-    collection = [True for _ in range(n+1)]
-    p = 2
-    while p * p <= n:
-        if collection[p] is True:
-            for i in range(p * p, n + 1, p):
-                collection[i] = False
-        p += 1
-    prime = [x for x in range(2, n) if collection[x] is True]
-    return prime
-
-
 def playOneRound(nb):
     """ Play one round and return winner """
     number_set = [x for x in range(2, nb + 1)]
