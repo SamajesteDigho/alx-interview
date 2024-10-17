@@ -47,7 +47,7 @@ def isWinner(x, nums):
                 counts['Ben'] += 1
         except Exception:
             pass
-    if counts['Maria'] > counts['Ben']:
+    if counts['Maria'] >= counts['Ben']:
         return 'Maria'
     else:
         return 'Ben'
