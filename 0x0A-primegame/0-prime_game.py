@@ -35,15 +35,18 @@ def isWinner(x, nums):
     counts = {'Maria': 0, 'Ben': 0}
     round = 0
     for nb in nums:
-        if round >= x:
-            break
-        else:
-            round += 1
-        winner = playOneRound(nb)
-        if winner == 1:
-            counts['Maria'] += 1
-        else:
-            counts['Ben'] += 1
+        try:
+            if round >= x:
+                break
+            else:
+                round += 1
+            winner = playOneRound(nb)
+            if winner == 1:
+                counts['Maria'] += 1
+            else:
+                counts['Ben'] += 1
+        except Exception:
+            pass
     if counts['Maria'] > counts['Ben']:
         return 'Maria'
     else:
